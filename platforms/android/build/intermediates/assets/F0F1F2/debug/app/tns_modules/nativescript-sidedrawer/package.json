@@ -1,0 +1,117 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "nativescript-sidedrawer",
+        "scope": null,
+        "escapedName": "nativescript-sidedrawer",
+        "name": "nativescript-sidedrawer",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/home/anton/Projects/ang2/ng-native"
+    ]
+  ],
+  "_from": "nativescript-sidedrawer@latest",
+  "_id": "nativescript-sidedrawer@1.0.6",
+  "_inCache": true,
+  "_location": "/nativescript-sidedrawer",
+  "_nodeVersion": "7.8.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/nativescript-sidedrawer-1.0.6.tgz_1492526100922_0.5289720164146274"
+  },
+  "_npmUser": {
+    "name": "roblav96",
+    "email": "roblav96@gmail.com"
+  },
+  "_npmVersion": "4.2.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "nativescript-sidedrawer",
+    "scope": null,
+    "escapedName": "nativescript-sidedrawer",
+    "name": "nativescript-sidedrawer",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/nativescript-sidedrawer/-/nativescript-sidedrawer-1.0.6.tgz",
+  "_shasum": "c424feb754bb77641ea89bef51c1d59d01690d0f",
+  "_shrinkwrap": null,
+  "_spec": "nativescript-sidedrawer",
+  "_where": "/home/anton/Projects/ang2/ng-native",
+  "author": {
+    "name": "Rob Laverty",
+    "email": "roblav96@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/gethuman/nativescript-sidedrawer/issues"
+  },
+  "dependencies": {},
+  "description": "SideDrawer menu plugin for Nativescript - iOS/Android.",
+  "devDependencies": {
+    "tns-core-modules": "latest",
+    "tns-platform-declarations": "latest",
+    "typescript": "latest"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "c424feb754bb77641ea89bef51c1d59d01690d0f",
+    "tarball": "https://registry.npmjs.org/nativescript-sidedrawer/-/nativescript-sidedrawer-1.0.6.tgz"
+  },
+  "gitHead": "f2bf34b6b9371933fa5b9cdcf86adec69a52d6c6",
+  "homepage": "https://github.com/gethuman/nativescript-sidedrawer",
+  "keywords": [
+    "main",
+    "menu",
+    "mainmenu",
+    "side",
+    "drawer",
+    "sidedrawer",
+    "nativescript",
+    "ecosystem:nativescript",
+    "nativescript-android",
+    "nativescript-ios",
+    "JavaScript",
+    "Android",
+    "iOS"
+  ],
+  "license": "MIT",
+  "main": "nativescript-sidedrawer",
+  "maintainers": [
+    {
+      "name": "roblav96",
+      "email": "roblav96@gmail.com"
+    }
+  ],
+  "name": "nativescript-sidedrawer",
+  "nativescript": {
+    "platforms": {
+      "android": "2.3.0",
+      "ios": "2.3.0"
+    }
+  },
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gethuman/nativescript-sidedrawer.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "demo.android": "npm run preparedemo && cd demo && tns run android",
+    "demo.ios": "npm run preparedemo && cd demo && tns emulate ios",
+    "demo.ios.device": "npm run preparedemo && cd demo && tns run ios",
+    "postclone": "npm i && node scripts/postclone.js",
+    "preparedemo": "npm run build && cd demo && tns plugin remove nativescript-sidedrawer && tns plugin add .. && tns install",
+    "setup": "npm i && cd demo && npm i && cd .. && npm run build && cd demo && tns plugin add .. && cd .."
+  },
+  "typings": "index.d.ts",
+  "version": "1.0.6"
+}

@@ -1,0 +1,39 @@
+<ActionBar title="General" color="white">
+  <NavigationButton (tap)="onMenu($event)" text="" ios.systemIcon="4" android.systemIcon="ic_menu_sort_by_size"></NavigationButton>
+</ActionBar>
+<DockLayout height="100%" stretchLastChild="true">
+    <GridLayout dock="bottom" height="50" 
+        borderTopWidth="1px" 
+        borderTopStyle="solid" 
+        borderTopColor="gray">
+        <DockLayout height="100%">
+            <Label 
+            #send
+            verticalAlignment="middle"
+            textAlign="center"
+            horizontalAlignment="center"
+            dock="right" 
+            class="font-awesome" 
+            marginRight="5" width="40" 
+            height="40" id="button"
+            fontSize="20"
+            padding="8"
+            borderRadius="100%"
+            color="white"
+            backgroundColor="#6cc192" 
+            text="&#xf1d8;" (tap)="onTap($event)"></Label>
+            <TextView dock="left" #textfield [(ngModel)]="newMessage" hint="Enter some text" editable="true" returnKeyType="send" (returnPress)="submit($event)"
+            class="input input-border"></TextView>
+        </DockLayout>
+    </GridLayout>
+    <GridLayout rows="*" dock="top">
+        <ListView #list [items]="chatroom.messages" separatorColor="transparent" verticalAlignment="bottom">
+            <ng-template let-item="item" let-i="index">
+                <StackLayout padding="5">
+                    <Label color="#007c23" [text]='item.author+":"'></Label>
+                    <Label fontSize="16" [text]='item.text'></Label>
+                </StackLayout>
+            </ng-template>
+        </ListView>
+    </GridLayout>
+</DockLayout>
