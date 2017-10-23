@@ -112,7 +112,7 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this.sub = this.chatroom.connect('Anton', ['global'])
+        this.sub = this.chatroom.connect()
             .switchMap(() => this.chatroom.getMessages('global'))
             .switchMap((messages: any[]) => {
                 //ABC

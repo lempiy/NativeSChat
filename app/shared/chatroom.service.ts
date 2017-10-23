@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs/Rx';
+import { Observable, Subject, Subscription, BehaviorSubject } from 'rxjs/Rx';
 require("nativescript-websockets");
 
 export class Message {
@@ -18,6 +18,7 @@ interface EventMap {
 class Connection {
     id: string;
     host: string;
+    connected: boolean;
     private receiver: Subject<any>;
     private socket: WebSocket;
     private eventMap:EventMap;
@@ -38,23 +39,22 @@ class Connection {
         })
     }
 
-    establishConnection(id:string, rooms: string[]):Observable<any> {
+    establishConnection():Observable<any> {
         return new Observable(subscriber => {
             this.eventMap = {};
-            this.id = id;
             this.receiver = new Subject();
             this.socket = 
-                new WebSocket(`ws://${this.host}/ws/join/?id=${id}${rooms.length ?
-                    "?rooms=" + rooms.join(',') : ""}`, []);
+                new WebSocket(`ws://${this.host}/ws/join/`)
             this.socket.onopen = (event) => {
+                this.connected = true;
                 console.log("Handshake success.")
                 subscriber.next({
-                    success: true,
-                    rooms: rooms
+                    success: true
                 })
                 this.initEventsMapping()
             }
             this.socket.onerror = (event) => {
+                this.connected = false;
                 console.log("Handshake failed.")
                 subscriber.error(event)
             }
@@ -75,6 +75,7 @@ class Connection {
     }
 
     send(data: any):void {
+        console.log(JSON.stringify(data))
         this.socket.send(JSON.stringify(data))
     }
 
@@ -103,12 +104,15 @@ export class ChatroomService {
         this.connection = new Connection("172.18.0.1:8080")
     }
 
-    connect(id: string, rooms: string[]):Observable<any> {
-        return this.connection.establishConnection(id, rooms)
+    connect():Observable<any> {
+        if (this.connection.connected) {
+            return Observable.of({success: true})
+        }
+        return this.connection.establishConnection()
     }
 
     requestMessages(data: any, room: string):void {
-        this.connection.send(Object.assign({}, data, {room}))
+        this.connection.send(Object.assign({}, data, {target: room}))
     }
 
     getMessages(room: string):Observable<any> {
@@ -118,6 +122,17 @@ export class ChatroomService {
 
     on(event: string, roomname: string):Subject<any> {
         return this.connection.subscribeTo(event)
+    }
+
+    sendEvent(eventName: string, data: any, target?:string) {
+        let t = target || "system"
+        this.connection.send(Object.assign({}, 
+            {
+                type: eventName, 
+                target: t, 
+                text: JSON.stringify(data)
+            }
+        ))
     }
 
     disconnect():Observable<any> {
