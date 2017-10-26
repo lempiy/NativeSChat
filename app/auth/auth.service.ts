@@ -42,10 +42,9 @@ export class AuthService {
                 }
             })
     }
-    //
     
     getToken() {
-        return appSettings.getString("token", "No string value");
+        return appSettings.getString("token", "");
     }
     
     authorize() {

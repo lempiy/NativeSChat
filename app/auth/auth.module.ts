@@ -5,14 +5,14 @@ import { AuthComponent } from "./auth.component";
 import { RegComponent } from "./reg.component";
 import { AuthService } from "./auth.service";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
+import { NativeScriptRouterModule } from "nativescript-angular/router";
 
 
 @NgModule({
-    imports: [routing, NativeScriptFormsModule],
-    declarations: [AuthComponent],
+    imports: [routing, NativeScriptFormsModule, NativeScriptRouterModule],
+    declarations: [AuthComponent, RegComponent],
     providers: [
         AuthService,
-        RegComponent
     ]
 })
 /*

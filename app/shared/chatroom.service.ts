@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, Subject, Subscription, BehaviorSubject } from 'rxjs/Rx';
 require("nativescript-websockets");
+const appSettings = require("application-settings");
 
 export class Message {
     text: string
@@ -43,8 +44,12 @@ class Connection {
         return new Observable(subscriber => {
             this.eventMap = {};
             this.receiver = new Subject();
+            const token = appSettings.getString("token", "");
             this.socket = 
-                new WebSocket(`ws://${this.host}/ws/join/`)
+                new WebSocket(`ws://${this.host}/ws/join/${
+                    token ?
+                    "?token=" + token : "" 
+                }`)
             this.socket.onopen = (event) => {
                 this.connected = true;
                 console.log("Handshake success.")

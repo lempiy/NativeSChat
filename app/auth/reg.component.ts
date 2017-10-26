@@ -7,12 +7,13 @@ import { ChatroomService } from "../shared/chatroom.service";
 @Component({
     selector: "ns-register",
     moduleId: module.id,
-    templateUrl: "./register.component.html",
+    templateUrl: "./reg.component.html",
 })
 export class RegComponent implements OnInit {
     router: Router;
     auth: AuthService;
     chatroom: ChatroomService;
+    ////
     // This pattern makes use of Angular’s dependency injection implementation to inject an instance of the ItemService service into this class. 
     // Angular knows about this service because it is included in your app’s main NgModule, defined in app.module.ts.
     constructor(page: Page, router: Router, auth: AuthService, chatroom: ChatroomService) {

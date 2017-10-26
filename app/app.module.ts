@@ -27,7 +27,6 @@ import { ChatroomService } from "./shared/chatroom.service";
     ],
     declarations: [
         AppComponent,
-        
     ],
     providers: [
         { provide: NgModuleFactoryLoader, useClass: NsModuleFactoryLoader },
