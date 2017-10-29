@@ -81,6 +81,16 @@ export class AuthService {
             return data
         })
     }
+    logout() {
+        this.cr.sendEvent("logout", null)
+        return this.cr.on("logout", "system").map(data => {
+            if (data.success) {
+                appSettings.setString("token", data);
+                this.parseJWT(data)
+            }
+            return data
+        })
+    }
     register() {
         this.cr.sendEvent("register", this.regData)
         return this.cr.on("register", "system").map(data => {
