@@ -2,7 +2,6 @@ import { NgModule, NO_ERRORS_SCHEMA, NgModuleFactoryLoader } from "@angular/core
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { AppRoutingModule } from "./app.routing";
 import { AppComponent } from "./app.component";
-import { AuthGuard } from "./auth.guard";
 
 import { AuthModule } from "./auth/auth.module";
 import { PagesModule } from "./pages/pages.module";
@@ -31,8 +30,7 @@ import { ChatroomService } from "./shared/chatroom.service";
     ],
     providers: [
         { provide: NgModuleFactoryLoader, useClass: NsModuleFactoryLoader },
-        ChatroomService,
-        AuthGuard
+        ChatroomService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

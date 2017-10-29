@@ -36,14 +36,14 @@ export class AuthService {
             repeatPassword: ""
         }
         if (this.getToken()) {
-            this.parseJWT()
+            this.parseJWT(this.getToken())
         }
         this.cr.connect()
             .switchMap(() => this.cr.on("session", "system"))
             .subscribe(data => {
                 if (data.token != this.getToken()) {
                     appSettings.setString("token", data.token);
-                    this.parseJWT()
+                    this.parseJWT(data.token)
                 }
             })
     }
@@ -52,13 +52,16 @@ export class AuthService {
         return appSettings.getString("token", "");
     }
 
-    private parseJWT() {
-        if (!this.getToken()) {
+    private parseJWT(token: string) {
+        if (!token) {
             return
         }
-        let base64Url = this.getToken().split('.')[1];
-        let base64 = base64Url.replace('-', '+').replace('_', '/');
-        this.parsedJWT = JSON.parse(window.atob(base64));
+        let base64Url = token.split('.')[1];
+        const text = new java.lang.String(base64Url);
+        const data = text.getBytes("UTF-8");
+        const base64Decoded = new java.lang.String(android.util.Base64.decode(data, android.util.Base64.NO_WRAP), "UTF-8");
+        this.parsedJWT = JSON.parse(base64Decoded);
+        console.dir(this.parsedJWT)
     }
 
     isLoggedIn() {
@@ -73,7 +76,7 @@ export class AuthService {
         return this.cr.on("login", "system").map(data => {
             if (data.success) {
                 appSettings.setString("token", data.token);
-                this.parseJWT()
+                this.parseJWT(data.token)
             }
             return data
         })
@@ -83,7 +86,7 @@ export class AuthService {
         return this.cr.on("register", "system").map(data => {
             if (data.success) {
                 appSettings.setString("token", data.token);
-                this.parseJWT()
+                this.parseJWT(data.token)
             }
             return data
         })

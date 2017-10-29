@@ -4,13 +4,15 @@ import { routing } from "./pages.routing";
 import { PagesComponent } from "./pages.component";
 import { PagesService } from "./pages.service";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
+import { AuthGuard } from "../auth.guard";
 
 
 @NgModule({
     imports: [routing, NativeScriptFormsModule],
     declarations: [PagesComponent],
     providers: [
-        PagesService
+        PagesService,
+        AuthGuard
     ]
 })
 /*
