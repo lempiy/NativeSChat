@@ -24,9 +24,10 @@ export class AuthComponent implements OnInit {
     }
 
     onTap($event) {
-        this.auth.authorize()
-        console.log(this.auth.getToken())
-        this.router.navigate(['/pages']);
+        const sub = this.auth.authorize().subscribe(() => {
+            this.router.navigate(['/pages']);
+            sub.unsubscribe();
+        })        
     }
 
     ngOnInit(): void {

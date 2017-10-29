@@ -21,7 +21,8 @@ import { AnimationCurve } from "ui/enums";
 import { View } from "ui/core/view";
 import { TnsSideDrawer } from 'nativescript-sidedrawer';
 import { Color } from "color";
-import { Subscription } from 'rxjs'
+import { Subscription } from 'rxjs';
+import { AuthService } from "../../auth/auth.service";
 
 
 @Component({
@@ -37,6 +38,8 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
     sendButton: any
     zone: NgZone
     sub: Subscription
+    auth: AuthService
+    router: Router
     @ViewChild("send") send: ElementRef;
     @ViewChild("textfield") textfield: ElementRef;
     @ViewChild("list") list: ElementRef;
@@ -47,7 +50,10 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
         page: Page, 
         router: Router, 
         chatroom: ChatroomService,
+        auth: AuthService,
         ngZone: NgZone) {
+        this.router = router
+        this.auth = auth
         this.page = page
         this.chatroom = chatroom
         this.sendIcon = String.fromCharCode(0xf1d8)
@@ -134,13 +140,21 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
                 title: 'General',
             }, {
                 title: 'Profile',
+            }, {
+                title: 'Logout',
             }],
             backgroundColor: new colorModule.Color("#56b781"),
             headerBackgroundColor: new colorModule.Color("#31915b"),
             title: 'Go Chat',
             subtitle: 'Just for nice conversations.',
             listener: (index) => {
-                console.log(index)
+                switch (index) {
+                    case 2: let sub = this.auth.logout().subscribe(() => {
+                        this.router.navigate(['auth'])
+                        this.sub.unsubscribe()
+                        })
+                        break;
+                }
             },
             context: this,
         })
